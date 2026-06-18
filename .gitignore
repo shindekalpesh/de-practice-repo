@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# Local DB files (recreate via generate_data.py instead of committing binaries)
+*.db
+*.sqlite
+*.sqlite3
+
+# Spark / Databricks local artifacts
+metastore_db/
+derby.log
+spark-warehouse/
+
+# OS / editor noise
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Don't commit large generated CSVs -- keep generate_data.py instead so anyone
+# (including future-you) can regenerate fresh sample data on demand
+sample-data/*.csv
+!sample-data/.gitkeep
