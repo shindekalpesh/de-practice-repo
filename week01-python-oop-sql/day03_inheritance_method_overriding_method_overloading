@@ -1,0 +1,154 @@
+
+################################ METHOD OVERLOADING ################################
+
+"""
+Method Overloading:
+Method overloading means having multiple methods with the same name but different parameters. 
+Python does not support traditional method overloading; 
+it is usually simulated using default arguments, *args, or **kwargs.
+Definition: Same method name with different parameters
+Purpose: Handle different input combinations
+"""
+
+class CalculatorZ:
+
+    def add(self, a, b):
+        return a + b
+    
+    def add(self, a, b, c=0):
+        return a + b + c
+    
+    # Here 1st add method is overwritten by 2nd add method.
+
+calc = CalculatorZ()
+print(">>", calc.add(4,5))
+
+# Instead of CalculatorZ, the below class Calculator is well written.
+
+class Calculator:
+
+    def add(self, *args):
+        return sum(args)
+    
+a = Calculator()
+print(a)
+print(a.add(40,30,20))
+print(a)
+
+########################################################################################
+
+"""
+Inheritance, Method overriding
+
+There are three types of Inheritance:
+1. Single inheritance:
+    A -> B              : One level
+2. Multi-level inheritance
+    A -> B -> C         : Single level of classes      
+3. Multiple inheritance
+    A -> C and B -> C   : Two/mutliple parent class and one child class
+
+Method Overriding:
+Method overriding occurs when a child class provides its own implementation of a method already defined in the parent class. 
+It is fully supported in Python and is used to achieve runtime polymorphism through inheritance.
+Definition: Child class provides its own implmentation of a parent class.
+Purpose: Change or extend inherited (from Parent class) behaviour.
+
+"""
+
+# 1. Single inheritance:
+class Car:                      # Base/Parent class
+
+    def __init__(self, fuel, color):
+        self.fuel = fuel
+        self.color = color
+
+    @staticmethod
+    def start():
+        return "Car has started..."
+
+    @staticmethod
+    def stop():
+        return "Car has stopped..."
+
+
+c1 = Car("Diesel", "White")
+# print(c1.fuel)
+# print(c1.start())
+# print(c1.stop())
+
+
+class Skoda(Car):           # Derived/Child class
+
+    def __init__(self, fuel, color, name, variant):
+        super().__init__(fuel, color)
+        self.name = name
+        self.variant = variant
+
+c2 = Skoda("Diesel", "Black", "Kodiaq", "Top")
+
+# print("--------- Single Inheritance ---------")
+# print("c2.fuel", type(c2.fuel), c2.fuel)
+# print("c2.color", type(c2.color), c2.color)
+# print("c2.name", type(c2.name), c2.name)
+# print("c2.variant", type(c2.variant), c2.variant)
+# print("c2.start()", type(c2.start()), c2.start())
+# print("c2.stop()", type(c2.stop()), c2.stop())
+
+
+##########################################################################################
+# 2. Multi-level inheritance:
+
+# Using the above 'Car' Parent class:
+
+class Transmission(Skoda):
+
+    def __init__(self, fuel, color, name, variant, transmission):
+        super().__init__(fuel, color, name, variant)
+        self.fuel = fuel
+        self.color = color
+        self.name = name
+        self.variant = variant
+        self.transmission = transmission
+
+
+c3 = Transmission("Petrol", "Gray", "Octavia", "Top", "Automatic")
+# print("--------- Multi-level Inheritance ---------")
+# print("c3.fuel", type(c3.fuel), c3.fuel)
+# print("c3.color", type(c3.color), c3.color)
+# print("c3.name", type(c3.name), c3.name)
+# print("c3.variant", type(c3.variant), c3.variant)
+# print("c3.transmission", type(c3.transmission), c3.transmission)
+# print("c3.start()", type(c3.start()), c3.start())
+# print("c3.stop()", type(c3.stop()), c3.stop())
+
+
+
+##########################################################################################
+# 3. Multiple inheritance:
+
+# Using the above 'Car' Parent class:
+
+class Price(Car):
+    
+    def __init__(self, fuel, color, ex_showroom_price):
+        super().__init__(fuel, color)
+        self.ex_showroom_price = ex_showroom_price
+        # self.on_road_price = self.ex_showroom_price + (self.ex_showroom_price * 0.27)   # There's a problem here. If ex_showroom_price is updated, on_road_price does not get updated automatically. 
+
+    def start(self):                # This is called Method Overriding achieved through Inheritance. The Parent class's start() method got overridden by child class's own start() method.
+        return "This car ROARS with price tag!"
+
+    
+    
+c4 = Price("Petrol", "Gray", 1000000)
+print("--------- Multi-level Inheritance ---------")
+print("c4.fuel", type(c4.fuel), c4.fuel)
+print("c4.color", type(c4.color), c4.color)
+print("c4.ex_showroom_price", type(c4.ex_showroom_price), c4.ex_showroom_price)
+# print("c4.on_road_price", type(c4.on_road_price), c4.on_road_price)
+# print("c4.name", type(c4.name), c4.name)
+# print("c4.variant", type(c4.variant), c4.variant)
+# print("c4.transmission", type(c4.transmission), c4.transmission)
+print("c4.start()", type(c4.start()), c4.start())
+print("c4.stop()", type(c4.stop()), c4.stop())
